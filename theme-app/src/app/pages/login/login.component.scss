@@ -5,7 +5,7 @@
 .layout-grid{
     width: 100vw;
     height: 100vh;
-    background-color: rgb(255, 0, 144);
+    background-color: #ff0090;
     color: #fff;
 }
 .img-section{
@@ -22,3 +22,11 @@
 .standard{
     padding: 10px 40px ;
 }
+
+.mat-stepper-vertical {
+    margin-top: 8px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }

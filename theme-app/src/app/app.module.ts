@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MaterialDesignModule } from './modules/material-design/material-design.module';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { HomeComponent } from './pages/home/home.component';
   imports: [
     BrowserModule,
     MaterialDesignModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

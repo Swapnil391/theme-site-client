@@ -8,7 +8,7 @@
                 <a style="width:100%;text-align: center;padding: 5px;font-size: medium;margin: 0 auto;text-decoration: none;color: #fff;" href='https://pngtree.com/so/people'>Art By agny_illustration</a>
             </td>
             <td class="login-form">
-                <mat-card class="login-card">
+                <mat-card class="login-card" *ngIf="isuser">
                     <mat-card-title class="standard" style="font-weight: 700;">Login</mat-card-title>
                     <mat-card-content>
                         <form style="width: 100%;">
@@ -22,6 +22,50 @@
                             </mat-form-field>
                             <button  style="margin-left: 40px;padding: 0px 40px;" mat-flat-button color="accent">Login</button>
                         </form>
+                        <p style="padding: 20px 40px;">Don't have an existing account ? <span style="color: #ff0090;cursor: pointer;" (click)="isuser=!isuser" >Create Account</span></p>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="login-card" *ngIf="!isuser">
+                    <mat-card-title class="standard" style="font-weight: 700;">Create Account</mat-card-title>
+                    <mat-card-content>
+                        <mat-stepper orientation="vertical" [linear]="true" color="accent" #stepper>
+                            <mat-step [stepControl]="firstFormGroup" label = "User Details">
+                              <form [formGroup]="firstFormGroup">
+                                <mat-form-field style="width: 80%;" appearance="outline">
+                                    <mat-label>User Name</mat-label>
+                                    <input matInput type="text" formControlName="username"  required>
+                                </mat-form-field>
+                                <mat-form-field style="width: 80%;" appearance="outline">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput type="text" formControlName="password"  required>
+                                </mat-form-field>
+                                <div>
+                                    <button  style="padding: 0px 40px;" mat-flat-button matStepperNext color="accent">Next</button>
+                                </div>
+                              </form>
+                            </mat-step>
+                            <mat-step [stepControl]="secondFormGroup" label = "Confirm Email Address">
+                              <form [formGroup]="secondFormGroup">
+                                <mat-form-field style="width: 80%;" appearance="outline">
+                                  <mat-label>Email Address</mat-label>
+                                  <input matInput formControlName="secondCtrl" placeholder="xyz@mail.com"
+                                         required>
+                                </mat-form-field>
+                                <div>
+                                  <button style="padding: 0px 40px;" mat-flat-button matStepperPrevious color="accent">Back</button> &nbsp;
+                                  <button style="padding: 0px 40px;" mat-flat-button matStepperNext color="accent">Next</button>
+                                </div>
+                              </form>
+                            </mat-step>
+                            <mat-step label = "Submit">
+                              <p style="padding:40px 0px;">You are now done.</p>
+                              <div>
+                                <button style="padding: 0px 40px;" mat-flat-button matStepperPrevious color="accent">Back</button> &nbsp;
+                                <button style="padding: 0px 40px;" mat-flat-button color="accent">Create Account</button>
+                              </div>
+                            </mat-step>
+                          </mat-stepper>
+                        <p style="padding: 20px 40px;">Already have an existing account ? <span style="color: #ff0090;cursor: pointer;" (click)="isuser=!isuser" >Login</span></p>
                     </mat-card-content>
                 </mat-card>
             </td>
