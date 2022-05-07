@@ -1,5 +1,5 @@
 <div class="container">
-    <table class="layout-grid">
+    <table class="layout-grid" cellspacing="0" cellpadding="0">
         <tr>
             <td class="img-section">
                 <h1 style="padding: 5px;">Logo Here</h1>
@@ -44,14 +44,24 @@
                                 </div>
                               </form>
                             </mat-step>
-                            <mat-step [stepControl]="secondFormGroup" label = "Confirm Email Address">
+                            <mat-step [stepControl]="secondFormGroup" label = "Verify Email Address">
                               <form [formGroup]="secondFormGroup">
-                                <mat-form-field style="width: 80%;" appearance="outline">
+                                <mat-form-field style="width: 80%;" appearance="outline" *ngIf="!verifiedOtp">
                                   <mat-label>Email Address</mat-label>
-                                  <input matInput formControlName="secondCtrl" placeholder="xyz@mail.com"
-                                         required>
+                                  <input matInput formControlName="email" placeholder="xyz@mail.com" required>
                                 </mat-form-field>
-                                <div>
+                                <div *ngIf="!showotp && !verifiedOtp">
+                                  <button style="padding: 0px 40px;" mat-flat-button color="accent" (click)="sendOtp()">Send OTP</button>
+                                </div>
+                                <mat-form-field style="width: 80%;" appearance="outline" *ngIf="showotp && !verifiedOtp">
+                                  <mat-label>OTP</mat-label>
+                                  <input matInput formControlName="otp" required>
+                                </mat-form-field>
+                                <div *ngIf="showotp && !verifiedOtp">
+                                  <button style="padding: 0px 40px;" mat-flat-button color="accent" (click)="verifyOtp()">Verify</button>
+                                </div>
+                                <p style="padding:40px 0px;" *ngIf="verifiedOtp">Email verification done.</p>
+                                <div *ngIf="verifiedOtp">
                                   <button style="padding: 0px 40px;" mat-flat-button matStepperPrevious color="accent">Back</button> &nbsp;
                                   <button style="padding: 0px 40px;" mat-flat-button matStepperNext color="accent">Next</button>
                                 </div>
@@ -61,7 +71,7 @@
                               <p style="padding:40px 0px;">You are now done.</p>
                               <div>
                                 <button style="padding: 0px 40px;" mat-flat-button matStepperPrevious color="accent">Back</button> &nbsp;
-                                <button style="padding: 0px 40px;" mat-flat-button color="accent">Create Account</button>
+                                <button style="padding: 0px 40px;" mat-flat-button color="accent" (click) = "register()">Create Account</button>
                               </div>
                             </mat-step>
                           </mat-stepper>
