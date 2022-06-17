@@ -14,13 +14,13 @@
                         <form style="width: 100%;">
                             <mat-form-field class="standard" style="width: 80%;" appearance="outline">
                                 <mat-label>User Name</mat-label>
-                                <input matInput type="text" required>
+                                <input matInput name="username" maxlength="10" [(ngModel)]="loginDetails.username" type="text" required>
                             </mat-form-field>
                             <mat-form-field class="standard" style="width: 80%;" appearance="outline">
                                 <mat-label>Password</mat-label>
-                                <input matInput type="text" required>
+                                <input matInput name="password" [(ngModel)]="loginDetails.password" type="text" required>
                             </mat-form-field>
-                            <button  style="margin-left: 40px;padding: 0px 40px;" mat-flat-button color="accent">Login</button>
+                            <button  style="margin-left: 40px;padding: 0px 40px;" mat-flat-button color="accent" (click)="login()">Login</button>
                         </form>
                         <p style="padding: 20px 40px;">Don't have an existing account ? <span style="color: #ff0090;cursor: pointer;" (click)="isuser=!isuser" >Create Account</span></p>
                     </mat-card-content>

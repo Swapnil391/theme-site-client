@@ -1,0 +1,29 @@
+<app-toolbar [tabs]="toolbarTabs"></app-toolbar>
+<br>
+<mat-card>
+    <mat-card-title class="standard" style="font-weight: 700;">User Details</mat-card-title>
+    <mat-card-content>
+        <form>
+            <mat-form-field style="margin: 0px 4px;" appearance="outline">
+                <mat-label>User Name</mat-label>
+                <input name="username" matInput type="text" [(ngModel)]="header.username">
+            </mat-form-field>
+            <mat-form-field style="margin: 0px 4px;" appearance="outline">
+                <mat-label>Profession</mat-label>
+                <input name="profession" matInput type="text" [(ngModel)]="header.profession">
+            </mat-form-field>
+            <mat-form-field style="margin: 0px 4px;width: 100%;" appearance="outline">
+                <mat-label>Skills</mat-label>
+                <textarea name="skills" matInput type="text" rows="4" [(ngModel)]="header.skills"></textarea>
+            </mat-form-field>
+            <mat-form-field style="margin: 0px 4px;width: 100%;" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea name="description" matInput type="text" rows="8" [(ngModel)]="header.description"></textarea>
+            </mat-form-field>
+            <div>
+                <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="updateUserById()">Save</button>
+                <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="updateUserById()">Cancel</button>
+            </div>
+          </form>
+    </mat-card-content>
+</mat-card>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http-service.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { HttpService } from 'src/app/services/http-service.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  hideNav = true;
   isuser: any;
   showotp: any;
   firstFormGroup: any;
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit {
   verifiedOtp: any;
   registerDetails: any = {};
   loginDetails: any = {};
-  constructor(private _formBuilder: FormBuilder,private httpService:HttpService) { 
+  constructor(private _formBuilder: FormBuilder,private httpService:HttpService,private _router:Router) { 
     this.firstFormGroup= FormGroup;
     this.secondFormGroup= FormGroup;
   }
@@ -34,8 +36,39 @@ export class LoginComponent implements OnInit {
 
   register(){
     var _self = this;
-    this.httpService.sendReq(null, '/api/register', {username:'swapnil'}, function (data:any, err:any) {
-      return;
+    var params = {
+      username: this.firstFormGroup.get('username').value?this.firstFormGroup.get('username').value:null,
+      password: this.firstFormGroup.get('password').value?this.firstFormGroup.get('password').value:null,
+      emailid:this.secondFormGroup.get('email').value?this.secondFormGroup.get('email').value:null
+    }
+    this.httpService.sendReq(null, '/api/register', params, function (data:any, err:any) {
+      if(err){
+        console.log(err);
+      }else if(data.data){
+        localStorage.setItem("userdetails",JSON.stringify(data.data) );
+        _self._router.navigate(["home"], { replaceUrl: true });
+      }
+    });
+  }
+
+  login(){
+    var _self = this;
+    var params = {
+      username: _self.loginDetails.username,
+      password: _self.loginDetails.password
+    }
+    this.httpService.sendReq(null, '/api/login', params, function (data:any, err:any) {
+      if(err){
+        console.log(err);
+      }else if(data.error){
+        console.log(data.error);
+      }else if(data.data){
+        localStorage.setItem("userdetails",JSON.stringify(data.data) );
+        // var userInfo = localStorage.getItem("userdetails");
+        // console.log(userInfo);
+        
+        _self._router.navigate(["home"], { replaceUrl: true });
+      }
     });
   }
 
@@ -60,7 +93,7 @@ export class LoginComponent implements OnInit {
       if(res && res.data){
         _self.verifiedOtp = true;
       }
-      return;//[(ngModel)]="registerDetails.password"
+      return;
     });
   }
 

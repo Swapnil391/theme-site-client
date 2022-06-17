@@ -9,6 +9,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -21,7 +25,11 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatIconModule,
     MatCardModule,
     MatInputModule,
-    MatStepperModule
+    MatStepperModule,
+    MatToolbarModule,
+    MatTabsModule,
+    MatGridListModule,
+    MatListModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -30,7 +38,11 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatIconModule,
     MatCardModule,
     MatInputModule,
-    MatStepperModule
+    MatStepperModule,
+    MatToolbarModule,
+    MatTabsModule,
+    MatGridListModule,
+    MatListModule
   ]
 })
 export class MaterialDesignModule { }

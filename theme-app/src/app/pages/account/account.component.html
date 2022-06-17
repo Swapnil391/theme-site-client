@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<app-toolbar [tabs]="toolbarTabs"></app-toolbar>
+<app-profile-card *ngIf="userDetails" [userDetails]="userDetails"></app-profile-card>
+<mat-tab-group *ngIf="userDetails" color="accent" style="background-color: #fbfbfb;">
+    <mat-tab label="Details"> 
+        <br><br>
+        <div *ngIf="userDetails && userDetails.details && userDetails.details.profession" style="overflow: hidden;padding: 0px 20px;">
+            <h5 style="width: 100%;">Profession:</h5>
+            <p style="width: 100%;word-wrap: break-word;">{{userDetails.details.profession}}</p>
+        </div>
+        <br><br>
+        <div *ngIf="userDetails && userDetails.details && userDetails.details.description" style="overflow: hidden;padding: 0px 20px;">
+            <h5 style="width: 100%;">Description:</h5>
+            <p style="width: 100%;word-wrap: break-word;">{{userDetails.details.description}}</p>
+        </div>
+        <br><br>
+        <div *ngIf="userDetails && userDetails.details && userDetails.details.skills" style="overflow: hidden;padding: 0px 20px;">
+            <h5 style="width: 100%;">Skills:</h5>
+            <p style="width: 100%;word-wrap: break-word;">{{userDetails.details.skills}}</p>
+        </div>
+        <br><br>
+        <div style="overflow: hidden;padding: 0px 20px;">
+            <h5 style="width: 100%;">Social Media:</h5>
+            <p style="width: 100%;font-size:xx-large">
+                <i style="margin: 3px;color: #ff0090;" class="fa fa-facebook-square"></i><i style="margin: 3px;color: #ff0090;" class="fa fa-instagram"></i><i style="margin: 3px;color: #ff0090;" class="fa fa-github-square"></i>
+            </p>
+        </div>
+        <br><br>       
+    </mat-tab>
+    <mat-tab label="Projects"> Projects </mat-tab>
+</mat-tab-group>

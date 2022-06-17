@@ -1,0 +1,19 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .tab{
+      padding: 10px;
+      cursor: pointer;
+  }
+  a{
+    text-decoration: none;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    color: #000;
+  }
+
+  .tab:hover{
+        border-bottom:  1px solid #f568a9d6;
+  }

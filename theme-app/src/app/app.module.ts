@@ -7,13 +7,23 @@ import { MaterialDesignModule } from './modules/material-design/material-design.
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { AccountComponent } from './pages/account/account.component';
+import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { UserDetailsComponent } from './pages/user-details/user-details.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ToolbarComponent,
+    AccountComponent,
+    ProfileCardComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +31,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
