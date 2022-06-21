@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{data.header}}</h1>
+<div mat-dialog-content>
+    <ng-container *ngFor="let component of data.content">
+        <p *ngIf="component.type == 'text'">{{component.value}}</p>
+        <mat-form-field *ngIf="component.type == 'input'" appearance="fill">
+            <mat-label>{{component.label}}</mat-label>
+            <input readonly="component.disabled" matInput [(ngModel)]="component.value">
+        </mat-form-field>
+    </ng-container>
+</div>
+<div mat-dialog-actions>
+  <button *ngIf="data.showCancel" mat-button [mat-dialog-close]="false">{{data.cancelLabel}}</button>
+  <button *ngIf="data.showOk" mat-button [mat-dialog-close]="data" cdkFocusInitial>{{data.okLabel}}</button>
+</div>

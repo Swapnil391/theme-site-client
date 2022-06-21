@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { StandardDialogComponent } from 'src/app/components/standard-dialog/standard-dialog.component';
 import { HttpService } from 'src/app/services/http-service.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-account',
@@ -13,7 +15,7 @@ export class AccountComponent implements OnInit {
   userDetails:any;
   loggedInUser: any;
   isSameUser: any;
-  constructor(private httpService:HttpService,private route: ActivatedRoute) { }
+  constructor(private httpService:HttpService,private route: ActivatedRoute,private utilityService:UtilityService) { }
 
   ngOnInit(): void {
     let _self=this;
@@ -54,6 +56,9 @@ export class AccountComponent implements OnInit {
         console.log(err);
       }else if(data.data){
         _self.userDetails = data.data;
+        try {
+          _self.userDetails.details.socialmedia = data.data.details.socialmedia?JSON.parse(data.data.details.socialmedia):{};
+        } catch (error) {}
       }
     });
   }

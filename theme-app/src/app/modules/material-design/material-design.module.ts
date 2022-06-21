@@ -13,6 +13,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatListModule} from '@angular/material/list';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {MatListModule} from '@angular/material/list';
     MatToolbarModule,
     MatTabsModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -42,7 +44,8 @@ import {MatListModule} from '@angular/material/list';
     MatToolbarModule,
     MatTabsModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ]
 })
 export class MaterialDesignModule { }

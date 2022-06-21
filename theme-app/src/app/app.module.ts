@@ -13,6 +13,8 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { StandardDialogComponent } from './components/standard-dialog/standard-dialog.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { environment } from '../environments/environment';
     ToolbarComponent,
     AccountComponent,
     ProfileCardComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    StandardDialogComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

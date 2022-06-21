@@ -1,0 +1,15 @@
+<mat-card style="margin: 6px;">
+    <mat-card-title class="standard" style="font-weight: 700;">{{params.title}}</mat-card-title>
+    <mat-card-content>
+        <input style="display: none;" (change)="onFileSelected($event)" type="file" id="theFile" #fileUpload>
+        <mat-form-field appearance="outline">
+            <mat-label>{{params.inplbl}}</mat-label>
+            <input readonly name="file" matInput type="text" rows="4" [(ngModel)]="selectedFileName" (click)="fileUpload.click()">
+        </mat-form-field>
+        <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="onFileAdd()">Add</button>
+        <mat-list dense role="list">
+            <mat-list-item *ngFor="let file of filesToUpload;let k=index" role="listitem">{{file.name}} &nbsp; <button  mat-button color="accent" (click)="removeFile(k)">Remove</button></mat-list-item>
+        </mat-list>
+        <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="upload()">Upload</button>
+    </mat-card-content>
+</mat-card>

@@ -1,6 +1,6 @@
 <app-toolbar [tabs]="toolbarTabs"></app-toolbar>
-<br>
-<mat-card>
+<app-file-upload [params]="{title:'Profile Image',inplbl:'Profile Image',btnlbl:'Browse'}" (uploads)="getUploadedFiles($event)"></app-file-upload>
+<mat-card style="margin: 6px;">
     <mat-card-title class="standard" style="font-weight: 700;">User Details</mat-card-title>
     <mat-card-content>
         <form>
@@ -12,6 +12,20 @@
                 <mat-label>Profession</mat-label>
                 <input name="profession" matInput type="text" [(ngModel)]="header.profession">
             </mat-form-field>
+            <ng-container *ngIf="header.socialmedia">
+                <mat-form-field style="margin: 0px 4px;" appearance="outline">
+                    <mat-label>Facebook Profile Link</mat-label>
+                    <input name="facebookurl" matInput type="text" [(ngModel)]="header.socialmedia.facebook">
+                </mat-form-field>
+                <mat-form-field style="margin: 0px 4px;" appearance="outline">
+                    <mat-label>Instagram Profile Link</mat-label>
+                    <input name="instagramurl" matInput type="text" [(ngModel)]="header.socialmedia.instagram">
+                </mat-form-field>
+                <mat-form-field style="margin: 0px 4px;" appearance="outline">
+                    <mat-label>GitHub Profile Link</mat-label>
+                    <input name="githuburl" matInput type="text" [(ngModel)]="header.socialmedia.github">
+                </mat-form-field>
+            </ng-container>
             <mat-form-field style="margin: 0px 4px;width: 100%;" appearance="outline">
                 <mat-label>Skills</mat-label>
                 <textarea name="skills" matInput type="text" rows="4" [(ngModel)]="header.skills"></textarea>
@@ -22,8 +36,8 @@
             </mat-form-field>
             <div>
                 <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="updateUserById()">Save</button>
-                <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="updateUserById()">Cancel</button>
+                <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="cancel()">Cancel</button>
             </div>
-          </form>
+        </form>
     </mat-card-content>
 </mat-card>

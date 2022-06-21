@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +8,7 @@ import { FileService } from 'src/app/services/file.service';
 export class HomeComponent implements OnInit {
   toolbarTabs : any = []
   loggedInUser : any;
-  constructor(private fileService:FileService) { }
-
-  onFileChange(fileInput: any){
-    this.fileService.fileChangeEvent(fileInput)
-  }
+  constructor() { }
 
   ngOnInit(): void {
     let _self = this;

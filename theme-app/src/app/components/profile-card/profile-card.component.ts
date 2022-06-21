@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UtilityService } from 'src/app/services/utility.service';
+import { StandardDialogComponent } from '../standard-dialog/standard-dialog.component';
 
 @Component({
   selector: 'app-profile-card',
@@ -13,7 +15,7 @@ export class ProfileCardComponent implements OnInit {
   loggedInUser: any;
   header: any;
   isSameUser: any;
-  constructor(private router: Router) { }
+  constructor(private router: Router,private utilityService:UtilityService) { }
 
   ngOnInit(): void {
     let _self=this;
@@ -33,6 +35,34 @@ export class ProfileCardComponent implements OnInit {
     localStorage.removeItem("userdetails");
     this.router.navigate(['/']);
   }
+
+  shareProfile(){
+    let _self=this;
+    var params={
+      header:"Share Link",
+      link:window.location.href,
+      content:[
+        {
+          type:'input',
+          disabled:true,
+          label:'Link',
+          value:window.location.href,
+          style:""
+        }
+      ],
+      showOk:true,
+      showCancel:true,
+      okLabel:'Copy',
+      cancelLabel:'Cancel'
+    }
+    _self.utilityService.openDialog(StandardDialogComponent,params,function (err:any,res:any) {
+      if(res && res.link){
+        console.log(res.link);
+        navigator.clipboard.writeText(res.link);
+      }
+    })
+  }
+
   public ngOnDestroy() {
     
   }

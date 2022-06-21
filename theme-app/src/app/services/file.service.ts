@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpService } from './http-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
 
-  constructor() { }
+  constructor(private httpService:HttpService) { }
 
   fileChangeEvent(fileInput: any) {
 
@@ -34,5 +35,21 @@ export class FileService {
     } else {
       myfilename = 'Select File';
     }
+  }
+
+  uploadFile(files:any,callback:any){
+    var _self = this;
+    var formData = new FormData();
+    files.forEach((file:any) =>{
+      formData.append("file", file);
+    })
+    _self.httpService.sendReq("http://localhost:5000", '/file/uploadfile', formData, function (data1:any, err1:any) {
+      if(err1){
+        console.log(err1);
+        callback(err1);
+      }else{
+        callback(null,data1)
+      }
+    });
   }
 }
