@@ -54,7 +54,7 @@
                             </p> 
                         </div>
                         <div style="display: flex;align-items: center;margin: 5px;"> 
-                            <button style="width: 40px;height: 40px;border-radius: 50%;margin: 2px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;"> 
+                            <button *ngIf="isSameUser" style="width: 40px;height: 40px;border-radius: 50%;margin: 2px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;"> 
                                 <a style="text-decoration: none;color: #ff71c1;" routerLink="/createproject" [queryParams]="{pid:project.projectid}" [replaceUrl]="true"> <i class="fa fa-pencil"></i> </a> 
                             </button>
                             <button [matMenuTriggerFor]="menu" style="width: 40px;height: 40px;border-radius: 50%;margin: 2px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;padding: 0px;"> 
@@ -63,6 +63,7 @@
                             <mat-menu #menu="matMenu">
                                 <button mat-menu-item (click)="shareProject(project)">Share Project</button>
                                 <button *ngIf="project.projectfilename" mat-menu-item><a download="quickdevproject" [href]="fileServerSource + project.projectfilename" style="text-decoration: none;color: #000;">Download Project</a></button>
+                                <button *ngIf="isSameUser" mat-menu-item (click)="deleteProject(project)" >Delete Project</button>
                             </mat-menu>
                         </div>
                     </div>

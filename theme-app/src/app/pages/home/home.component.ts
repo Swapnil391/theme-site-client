@@ -104,4 +104,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  openUser(user:any){
+    let _self=this;
+    this.router.navigate(['/account'],{replaceUrl: true,queryParams:{uid:user.userid}});
+  }
+
 }

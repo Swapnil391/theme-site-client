@@ -138,7 +138,7 @@ export class CreateProjectComponent implements OnInit {
     var files = event.data;
     this.cancelDisabled = true;
     files.uploadedFiles.forEach((element:any) => {
-      this.header.uploadedProjectUrls.push({link:element.serverFileName});
+      this.header.uploadedProjectUrls = [{link:element.serverFileName}];
     });
   }
 
@@ -155,7 +155,7 @@ export class CreateProjectComponent implements OnInit {
     var thumbnail = event.data;
     this.cancelDisabled = true;
     thumbnail.uploadedFiles.forEach((element:any) => {
-      this.header.uploadedThumbnailUrls.push({link:element.serverFileName});
+      this.header.uploadedThumbnailUrls = [{link:element.serverFileName}];
     });
   }
 

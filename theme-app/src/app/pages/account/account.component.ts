@@ -103,6 +103,13 @@ export class AccountComponent implements OnInit {
     })
   }
 
+  deleteProject(project:any){
+    let _self = this;
+    _self.utilityService.deleteproject({userid:project.userid,projectid:project.projectid},function(){
+      _self.getData(_self.header.userid);
+    });
+  }
+
 }
 
 

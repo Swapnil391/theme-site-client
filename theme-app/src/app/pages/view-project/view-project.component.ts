@@ -41,7 +41,7 @@ export class ViewProjectComponent implements OnInit {
     if (_self.loggedInUser && _self.loggedInUser.userid) {
       _self.toolbarTabs.push({label:'Account',link:"/account",queryParams:{uid:_self.loggedInUser.userid}});
     }
-    if (_self.header && _self.header.projectid && _self.loggedInUser.userid) {
+    if (_self.header && _self.header.projectid) {
       _self.header.uploadedImgUrls=[];
       _self.header.uploadedProjectUrls=[];
       _self.header.uploadedThumbnailUrls=[];
@@ -53,7 +53,6 @@ export class ViewProjectComponent implements OnInit {
     let _self = this;
     var params = {
       projectid:_self.header.projectid,
-      userid: _self.loggedInUser.userid
     }
     _self.httpService.sendReq(null, '/api/getprojectbyid', params, function (data:any, err:any) {
       if(err){

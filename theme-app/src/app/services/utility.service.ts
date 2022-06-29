@@ -87,4 +87,14 @@ export class UtilityService {
       }
     });   
   }
+  deleteproject(params:any,callback:any){
+    let _self = this;
+    _self.httpService.sendReq(null, '/api/deleteproject', params, function (data:any, err:any) {
+      if(err){
+        _self.openSnackBar('Some error occured');
+      }else{
+        callback();
+      }
+    });   
+  }
 }
