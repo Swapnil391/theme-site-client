@@ -4,13 +4,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as uuid from "uuid";
 import * as moment from 'moment';
+import { HttpService } from './http-service.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilityService {
   dialogRef: any;
-  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) { }
+  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar,private httpService:HttpService,private _router:Router) { }
 
   generateUUID() {
     var newuuid: any = uuid.v4();
@@ -72,5 +74,17 @@ export class UtilityService {
       finalStr +=  ", " + parts[1];
     }
     return finalStr ;
+  }
+
+  deleteAccount(params:any){
+    let _self = this;
+    _self.httpService.sendReq(null, '/api/deleteaccount', params, function (data:any, err:any) {
+      if(err){
+        _self.openSnackBar('Some error occured');
+      }else{
+        localStorage.removeItem("userdetails");
+        _self._router.navigate(['/home'],{replaceUrl: true});
+      }
+    });   
   }
 }

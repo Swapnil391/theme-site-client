@@ -63,6 +63,11 @@ export class ProfileCardComponent implements OnInit {
     })
   }
 
+  deleteAccount(){
+    let _self = this;
+    _self.utilityService.deleteAccount({userid:_self.loggedInUser.userid});
+  }
+
   public ngOnDestroy() {
     
   }
