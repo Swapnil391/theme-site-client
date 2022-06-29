@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http-service.service';
+import { UtilityService } from 'src/app/services/utility.service';
 import { __classPrivateFieldSet } from 'tslib';
 
 @Component({
@@ -14,7 +15,8 @@ export class UserDetailsComponent implements OnInit {
   loggedInUser: any;
   profileImg:any;
   profileChanged: boolean=false;
-  constructor(private httpService:HttpService,private _router:Router) { }
+  uploadedImgUrls:any=[];
+  constructor(private httpService:HttpService,private _router:Router,private utilityService:UtilityService) { }
 
   ngOnInit(): void {
     let _self = this;
@@ -39,7 +41,7 @@ export class UserDetailsComponent implements OnInit {
     }
     this.httpService.sendReq(null, '/api/getuserbyid', params, function (data:any, err:any) {
       if(err){
-        console.log(err);
+        _self.utilityService.openSnackBar('Some error occured');
       }else if(data.data){
         _self.header.username = data.data.username;
         _self.header.profession = data.data.details.profession;
@@ -49,13 +51,16 @@ export class UserDetailsComponent implements OnInit {
         try {
           _self.header.socialmedia = data.data.details.socialmedia?JSON.parse(data.data.details.socialmedia):{};
         } catch (error) {}
+        if(data.data.details.profilefilename){
+          _self.uploadedImgUrls.push({link:data.data.details.profilefilename})
+        }
       }
     });
   }
 
   updateUserById(){
     var _self = this;
-        var params = {
+        var params : any = {
           username : _self.header.username,
           profession : _self.header.profession,
           description : _self.header.description,
@@ -64,9 +69,15 @@ export class UserDetailsComponent implements OnInit {
           socialmedia:_self.header.socialmedia?JSON.stringify(_self.header.socialmedia):null,
         }
         
+        if(_self.uploadedImgUrls && _self.uploadedImgUrls.length > 0){
+          params.profilefilename = _self.uploadedImgUrls[0].link ? _self.uploadedImgUrls[0].link : '';
+        }else{
+          params.profilefilename = '';
+        }
+        
           _self.httpService.sendReq(null, '/api/updateuserbyid', params, function (data:any, err:any) {
             if(err){
-              console.log(err);
+              _self.utilityService.openSnackBar('Some error occured');
             }else{
               _self._router.navigate(["account"], { replaceUrl: true,queryParams:{uid:_self.loggedInUser.userid}});
             }
@@ -80,19 +91,20 @@ export class UserDetailsComponent implements OnInit {
 
   getUploadedFiles(event:any){
     let _self = this;
-    this.profileImg = event.data;
+    var profileImg = event.data;
     this.profileChanged = true;
-    var params = {
-      userid: _self.loggedInUser.userid,
-      profilefilename:this.profileImg.uploadedFiles[0].serverFileName
-    }
-    
-      _self.httpService.sendReq(null, '/api/updateprofileimgbyid', params, function (data:any, err:any) {
-        if(err){
-          console.log(err);
-        }else{
-          _self._router.navigate(["account"], { replaceUrl: true,queryParams:{uid:_self.loggedInUser.userid}});
-        }
-      });   
+    profileImg.uploadedFiles.forEach((element:any) => {
+      this.uploadedImgUrls.push({link:element.serverFileName});
+    });
+  }
+
+  removeDeletedFiles(event:any){
+    let _self = this;
+    var profileImg = event;
+    this.profileChanged = true;
+    this.uploadedImgUrls = [];
+    profileImg.uploadedFiles.forEach((element:any) => {
+      this.uploadedImgUrls.push({link:element.serverFileName});
+    });   
   }
 }

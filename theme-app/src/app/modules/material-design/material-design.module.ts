@@ -14,6 +14,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTabsModule,
     MatGridListModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
+    MatMenuModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -45,7 +49,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTabsModule,
     MatGridListModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
+    MatMenuModule
   ]
 })
 export class MaterialDesignModule { }

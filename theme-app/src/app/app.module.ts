@@ -15,6 +15,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { StandardDialogComponent } from './components/standard-dialog/standard-dialog.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { CreateProjectComponent } from './pages/create-project/create-project.component';
+import { ViewProjectComponent } from './pages/view-project/view-project.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     ProfileCardComponent,
     UserDetailsComponent,
     StandardDialogComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    CreateProjectComponent,
+    ViewProjectComponent
   ],
   imports: [
     BrowserModule,

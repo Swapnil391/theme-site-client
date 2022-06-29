@@ -11,7 +11,8 @@ import { StandardDialogComponent } from '../standard-dialog/standard-dialog.comp
 
 
 export class ProfileCardComponent implements OnInit {
-@Input() userDetails: any;
+  fileServerSource:any='http://localhost:5000/';
+  @Input() userDetails: any;
   loggedInUser: any;
   header: any;
   isSameUser: any;
@@ -33,7 +34,7 @@ export class ProfileCardComponent implements OnInit {
   }
   logout(){
     localStorage.removeItem("userdetails");
-    this.router.navigate(['/']);
+    this.router.navigate(['/'],{replaceUrl: true});
   }
 
   shareProfile(){
@@ -57,7 +58,6 @@ export class ProfileCardComponent implements OnInit {
     }
     _self.utilityService.openDialog(StandardDialogComponent,params,function (err:any,res:any) {
       if(res && res.link){
-        console.log(res.link);
         navigator.clipboard.writeText(res.link);
       }
     })

@@ -1,6 +1,7 @@
 <mat-card style="margin: 6px;">
     <mat-card-title class="standard" style="font-weight: 700;">{{params.title}}</mat-card-title>
     <mat-card-content>
+        <p style="color: #a2a2a2;font-size: smaller;" *ngIf="params.instruction">{{params.instruction}}</p>
         <input style="display: none;" (change)="onFileSelected($event)" type="file" id="theFile" #fileUpload>
         <mat-form-field appearance="outline">
             <mat-label>{{params.inplbl}}</mat-label>
@@ -11,5 +12,16 @@
             <mat-list-item *ngFor="let file of filesToUpload;let k=index" role="listitem">{{file.name}} &nbsp; <button  mat-button color="accent" (click)="removeFile(k)">Remove</button></mat-list-item>
         </mat-list>
         <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="upload()">Upload</button>
+    </mat-card-content>
+</mat-card>
+
+<mat-card style="margin: 6px;" *ngIf="params.uploadedfiles && params.uploadedfiles.length>0">
+    <mat-card-content>
+        <div style="display: flex;justify-content: flex-start;flex-wrap: wrap;flex-direction: row;">
+            <div style="width: 100px;height: 100px;margin: 5px;padding: 4px;" *ngFor="let img of params.uploadedfiles;let k=index" [ngClass]="img.selected ? 'image-container-selected':'image-container-not-selected'" (click)="imgClick(img)">
+                <img style="width: 100%;height: 100%;" [src]="params.type == 'image'?(fileServerSource+img.link):fileServerSource + 'assets/altfileicon.png'">
+            </div>
+        </div>
+        <div *ngIf="markedCount"><button style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="deleteSelected()">Delete</button></div>
     </mat-card-content>
 </mat-card>

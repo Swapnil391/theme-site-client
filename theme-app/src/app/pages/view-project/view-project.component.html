@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<app-toolbar [tabs]="toolbarTabs"></app-toolbar>
+
+<div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;">
+    <div style="width: 100px;margin: 10px;">
+        <div style="width: 100px;height: 100px;border-radius: 50%;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;overflow: hidden;border: 2px solid #ff71c1;">
+            <img style="width: 100%;border-radius: 50%;" [src]="header.profilefilename ? (fileServerSource+header.profilefilename) : fileServerSource + 'assets/useravatar.jpeg' " alt="" srcset="">
+        </div> 
+    </div>
+    <div style="width: 300px;margin: 10px;text-align: center;">
+        <p>
+            {{header.title}}
+        </p> 
+        <p style="font-size: 10px;">
+            {{header.username}} <i style="font-size: 4px;vertical-align: middle;" class="fa fa-circle" aria-hidden="true"></i> {{header.createdat ? (utilityService.getHumanizedDuration(header.createdat)) + ' ago ' : ''}}
+        </p> 
+    </div>
+    <div style="width: 400px" style="display: flex;justify-content: center;align-items: center;margin: 10px;">
+        <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="shareProject(header)">Share</button>
+        <button *ngIf="header.uploadedProjectUrls && header.uploadedProjectUrls[0] && header.uploadedProjectUrls[0].link"  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent"><a style="text-decoration: none;color: #fff;" [href]="fileServerSource+header.uploadedProjectUrls[0].link">Download</a></button>
+    </div>
+</div>
+
+<div *ngIf="header.uploadedImgUrls && header.uploadedImgUrls[0] && header.uploadedImgUrls[0].link" style="width: 90%;margin: 0 auto;">
+    <img style="width: 100%;" [src]="fileServerSource+header.uploadedImgUrls[0].link">
+</div>
+<div *ngIf="header.description" style="width: 90%;margin: 0 auto;margin-top: 20px;margin-bottom: 20px;">
+    <h1 style="padding: 10px;">Description:</h1>
+    <p style="padding: 10px;">{{header.description}}</p>
+</div>
+<div *ngIf="header.uploadedImgUrls && header.uploadedImgUrls[1] && header.uploadedImgUrls[1].link" style="width: 90%;margin: 0 auto;">
+    <img style="width: 100%;" [src]="fileServerSource+header.uploadedImgUrls[1].link">
+</div>
+<div *ngIf="header.uploadedImgUrls && header.uploadedImgUrls[2] && header.uploadedImgUrls[2].link" style="width: 90%;margin: 0 auto;">
+    <img style="width: 100%;" [src]="fileServerSource+header.uploadedImgUrls[2].link">
+</div>
+<div *ngIf="header.uploadedImgUrls && header.uploadedImgUrls[3] && header.uploadedImgUrls[3].link" style="width: 90%;margin: 0 auto;">
+    <img style="width: 100%;" [src]="fileServerSource+header.uploadedImgUrls[3].link">
+</div>
+
+<div *ngIf="header.demolink" style="width: 90%;margin: 0 auto;margin-top: 20px;margin-bottom: 20px;text-align: center;">
+    <h1 style="padding: 10px;">Live Demo Here</h1>
+    <h2 style="padding: 10px;"><a style="text-decoration: none;color: #ff71c1;" [href]="header.demolink">{{header.demolink}}</a></h2>
+</div>
+
+<div style="height: 100px;"></div>

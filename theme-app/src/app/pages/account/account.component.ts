@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StandardDialogComponent } from 'src/app/components/standard-dialog/standard-dialog.component';
 import { HttpService } from 'src/app/services/http-service.service';
 import { UtilityService } from 'src/app/services/utility.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-account',
@@ -10,12 +11,14 @@ import { UtilityService } from 'src/app/services/utility.service';
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
+  fileServerSource:any='http://localhost:5000/';
   toolbarTabs = [{label:'Home',link:"/home"}]
   header : any = {};
   userDetails:any;
   loggedInUser: any;
   isSameUser: any;
-  constructor(private httpService:HttpService,private route: ActivatedRoute,private utilityService:UtilityService) { }
+  moment = moment;
+  constructor(private router: Router,private httpService:HttpService,private route: ActivatedRoute,public utilityService:UtilityService) { }
 
   ngOnInit(): void {
     let _self=this;
@@ -27,7 +30,6 @@ export class AccountComponent implements OnInit {
     }
     _self.route.queryParams
       .subscribe(params => {
-        console.log(params); 
         _self.header.userid = params['uid'];
         if (_self.loggedInUser && _self.loggedInUser.userid && _self.header.userid && _self.loggedInUser.userid==_self.header.userid) {
           _self.isSameUser=true;
@@ -53,7 +55,7 @@ export class AccountComponent implements OnInit {
     }
     this.httpService.sendReq(null, '/api/getuserbyid', params, function (data:any, err:any) {
       if(err){
-        console.log(err);
+        _self.utilityService.openSnackBar('Some error occured');
       }else if(data.data){
         _self.userDetails = data.data;
         try {
@@ -63,7 +65,46 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  createNewProject(){
+    this.router.navigate(['/createproject'],{replaceUrl: true});
+  }
+
+  openProject(project:any){
+    this.router.navigate(['/viewproject'],{replaceUrl: true,queryParams:{pid:project.projectid}});
+  }
+
+  shareProject(project:any){
+    let _self=this;
+    const protocol = window.location.protocol;
+    const domain = window.location.hostname;
+    const port = window.location.port;
+    const fullUrl = `${protocol}://${domain}:${port? port : ""}/viewproject?pid=${project.projectid}`
+    var params={
+      header:"Share Link",
+      link:fullUrl,
+      content:[
+        {
+          type:'input',
+          disabled:true,
+          label:'Link',
+          value:window.location.href,
+          style:""
+        }
+      ],
+      showOk:true,
+      showCancel:true,
+      okLabel:'Copy',
+      cancelLabel:'Cancel'
+    }
+    _self.utilityService.openDialog(StandardDialogComponent,params,function (err:any,res:any) {
+      if(res && res.link){
+        navigator.clipboard.writeText(res.link);
+      }
+    })
+  }
+
 }
+
 
 
 // facebook: (?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?

@@ -1,1 +1,76 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <app-toolbar [tabs]="toolbarTabs"></app-toolbar>
+
+<div style="display: flex;justify-content: center;align-items: center;width: 100%;padding: 50px 0px;">
+    <input style="width: 90%;height: 40px;border-radius: 30px;border: none;padding-left: 30px;outline-color: #ff71c1;" name="search" matInput type="text" [(ngModel)]="searchText">    
+    <button style="width: 50px !important;height: 50px;border-radius: 50%;margin-left: 10px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 20px;padding: 0px;" (click)="getData()"> 
+        <i class="fa fa-search"></i>
+    </button> 
+</div>
+
+<div *ngIf="header.userlist && header.userlist.length>0" class="grid">
+    <div *ngFor="let user of header.userlist;let p=index" style="width: 150px;height: 180px;background: #fff;border-radius: 5px;display: flex;flex-wrap: wrap;justify-content: center;align-content: space-around;align-items: center;">
+            <div style="width: 100px;height: 100px;border-radius: 50%;margin: 8px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;padding: 0px;border: 2px solid #ff71c1;">
+                <img style="width: 100%;border-radius: 50%;" [src]="user.profilefilename ? (fileServerSource+user.profilefilename) : fileServerSource + 'assets/useravatar.jpeg' " alt="" srcset="">
+            </div> <br>
+            <p>{{user.username}}</p>
+    </div>
+</div>
+
+<div *ngIf="header.projectlist && header.projectlist.length>0" class="grid">
+    <div *ngFor="let project of header.projectlist;let p=index" [ngStyle]="{backgroundImage:'url('+ (project.thumbnailfilename?fileServerSource + project.thumbnailfilename:'') +')'}" class="cell">
+        <div style="width: 100%;overflow: hidden;">
+            <div style="font-size: 10px;height: 130px;" (click)="openProject(project)"></div>
+            <div style="width: 100%;display: flex;justify-content: space-between;align-items: center;background: #ee85c15f;">
+                <div style="width: 50px;height: 50px;border-radius: 50%;margin: 8px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;padding: 0px;">
+                    <img style="width: 100%;border-radius: 50%;" [src]="project.profilefilename ? (fileServerSource+project.profilefilename) : fileServerSource + 'assets/useravatar.jpeg' " alt="" srcset="">
+                </div> 
+                <div style="overflow: hidden;width: 60%;white-space: nowrap;padding-left: 10px;"> 
+                    <p>
+                        {{project.title}}
+                    </p> 
+                    <p style="font-size: 10px;">
+                        {{project.username}} <i style="font-size: 4px;vertical-align: middle;" class="fa fa-circle" aria-hidden="true"></i> {{project.createdat ? (utilityService.getHumanizedDuration(project.createdat)) + ' ago ' : ''}}
+                    </p> 
+                </div>
+                <div style="display: flex;align-items: center;margin: 5px;"> 
+                    <button [matMenuTriggerFor]="menu" style="width: 40px;height: 40px;border-radius: 50%;margin: 2px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;padding: 0px;"> 
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button> 
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="shareProject(project)">Share Project</button>
+                        <button *ngIf="project.projectfilename" mat-menu-item><a download="quickdevproject" [href]="fileServerSource + project.projectfilename" style="text-decoration: none;color: #000;">Download Project</a></button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>  
+
+        <!-- <div style="width: 100%;overflow: hidden;">
+            <div style="margin: 2px;font-size: 10px;">
+                <span *ngIf="project.isdisabled" style="background: #ff71c1;padding: 2px;margin: 2px;border-radius: 5px;">Not Active</span>
+            </div>
+            <div style="width: 100%;display: flex;justify-content: space-between;align-items: center;background: #ee85c15f;">
+                <div style="overflow: hidden;width: 60%;white-space: nowrap;padding-left: 10px;"> 
+                    <p>
+                        {{project.title}}
+                    </p> 
+                    <p style="font-size: 10px;">
+                        {{project.createdat ? (utilityService.getHumanizedDuration(project.createdat)) + ' ago ' : ''}}
+                    </p> 
+                </div>
+                <div style="display: flex;align-items: center;margin: 5px;"> 
+                    <button style="width: 40px;height: 40px;border-radius: 50%;margin: 2px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;"> 
+                        <a style="text-decoration: none;color: #ff71c1;" routerLink="/createproject" [queryParams]="{pid:project.projectid}" [replaceUrl]="true"> <i class="fa fa-pencil"></i> </a> 
+                    </button>
+                    <button [matMenuTriggerFor]="menu" style="width: 40px;height: 40px;border-radius: 50%;margin: 2px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;padding: 0px;"> 
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button> 
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>Share Project</button>
+                        <button *ngIf="project.projectfilename" mat-menu-item><a download="quickdevproject" [href]="fileServerSource + project.projectfilename">Download Project</a></button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>   -->
+    </div>
+</div>

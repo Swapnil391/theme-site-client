@@ -1,5 +1,5 @@
 <app-toolbar [tabs]="toolbarTabs"></app-toolbar>
-<app-file-upload [params]="{title:'Profile Image',inplbl:'Profile Image',btnlbl:'Browse'}" (uploads)="getUploadedFiles($event)"></app-file-upload>
+<app-file-upload [params]="{type:'image',title:'Profile Image',inplbl:'Profile Image',btnlbl:'Browse',accept:['image/jpg','image/jpeg','image/png'],uploadedfiles:uploadedImgUrls}" (uploads)="getUploadedFiles($event)" (delets)="removeDeletedFiles($event)"></app-file-upload>
 <mat-card style="margin: 6px;">
     <mat-card-title class="standard" style="font-weight: 700;">User Details</mat-card-title>
     <mat-card-content>
@@ -36,7 +36,7 @@
             </mat-form-field>
             <div>
                 <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="updateUserById()">Save</button>
-                <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="cancel()">Cancel</button>
+                <button *ngIf="!profileChanged"  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="cancel()">Cancel</button>
             </div>
         </form>
     </mat-card-content>

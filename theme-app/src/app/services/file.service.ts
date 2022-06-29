@@ -5,7 +5,7 @@ import { HttpService } from './http-service.service';
   providedIn: 'root'
 })
 export class FileService {
-
+  fileServerSource:any='http://localhost:5000';
   constructor(private httpService:HttpService) { }
 
   fileChangeEvent(fileInput: any) {
@@ -15,7 +15,6 @@ export class FileService {
 
       var myfilename = '';
       Array.from(fileInput.target.files).forEach((file:any) => {
-        console.log(file);
         myfilename += file.name + ',';
       });
 
@@ -43,9 +42,19 @@ export class FileService {
     files.forEach((file:any) =>{
       formData.append("file", file);
     })
-    _self.httpService.sendReq("http://localhost:5000", '/file/uploadfile', formData, function (data1:any, err1:any) {
+    _self.httpService.sendReq(_self.fileServerSource, '/file/uploadfile', formData, function (data1:any, err1:any) {
       if(err1){
-        console.log(err1);
+        callback(err1);
+      }else{
+        callback(null,data1)
+      }
+    });
+  }
+
+  deleteFile(files:any,callback:any){
+    var _self = this;
+    _self.httpService.sendReq(_self.fileServerSource, '/file/deletefile', {filenames:files}, function (data1:any, err1:any) {
+      if(err1){
         callback(err1);
       }else{
         callback(null,data1)

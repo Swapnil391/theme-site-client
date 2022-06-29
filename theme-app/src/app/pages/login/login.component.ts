@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http-service.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   verifiedOtp: any;
   registerDetails: any = {};
   loginDetails: any = {};
-  constructor(private _formBuilder: FormBuilder,private httpService:HttpService,private _router:Router) { 
+  constructor(private _formBuilder: FormBuilder,private httpService:HttpService,private _router:Router,private utilityService:UtilityService) { 
     this.firstFormGroup= FormGroup;
     this.secondFormGroup= FormGroup;
   }
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
     }
     this.httpService.sendReq(null, '/api/register', params, function (data:any, err:any) {
       if(err){
-        console.log(err);
+        _self.utilityService.openSnackBar('Some error occured');
       }else if(data.data){
         localStorage.setItem("userdetails",JSON.stringify(data.data) );
         _self._router.navigate(["home"], { replaceUrl: true });
@@ -59,9 +60,9 @@ export class LoginComponent implements OnInit {
     }
     this.httpService.sendReq(null, '/api/login', params, function (data:any, err:any) {
       if(err){
-        console.log(err);
+        _self.utilityService.openSnackBar('Some error occured');
       }else if(data.error){
-        console.log(data.error);
+        _self.utilityService.openSnackBar('Some error occured');
       }else if(data.data){
         localStorage.setItem("userdetails",JSON.stringify(data.data) );
         // var userInfo = localStorage.getItem("userdetails");

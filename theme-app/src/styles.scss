@@ -11,3 +11,37 @@
 body{
     background-color: #f2f2f2;
 }
+
+.grid{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.cell{
+    width: 350px;
+    height: 200px;
+    background: #ff94f3;
+    color: #f2f2f2;
+    margin: 5px;
+    border-radius: 5px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-origin: content-box;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.cell-panel{
+
+}
+
+@media (max-width: 720px) {
+    .cell{
+        width: 100%;
+    }
+  }

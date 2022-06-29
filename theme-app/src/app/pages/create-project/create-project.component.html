@@ -1,0 +1,27 @@
+<app-toolbar [tabs]="toolbarTabs"></app-toolbar>
+<app-file-upload [params]="{type:'image',title:'Thumbnail',instruction:'Only 1 .jpg and .png file allowed',inplbl:'Thumbnail Image',btnlbl:'Browse',accept:['image/jpg','image/jpeg','image/png'],uploadedfiles:header.uploadedThumbnailUrls}" (uploads)="getUploadedThumnail($event)" (delets)="removeDeletedThumnail($event)"></app-file-upload>
+<app-file-upload [params]="{type:'image',title:'Images',instruction:'Only 4 .jpg and .png files allowed',limit:4,inplbl:'Project Image',btnlbl:'Browse',accept:['image/jpg','image/jpeg','image/png'],uploadedfiles:header.uploadedImgUrls}" (uploads)="getUploadedImages($event)" (delets)="removeDeletedImages($event)"></app-file-upload>
+<app-file-upload [params]="{title:'Project File',instruction:'Only 1 .zip file allowed',inplbl:'Project Image',btnlbl:'Browse',accept:['application/zip'],uploadedfiles:header.uploadedProjectUrls}" (uploads)="getUploadedProjectFile($event)" (delets)="getUploadedProjectFile($event)"></app-file-upload>
+<mat-card style="margin: 6px;">
+    <mat-card-title class="standard" style="font-weight: 700;">Project Details</mat-card-title>
+    <mat-card-content>
+        <form>
+            <mat-form-field style="margin: 0px 4px;" appearance="outline">
+                <mat-label>Project Title</mat-label>
+                <input name="title" matInput type="text" [(ngModel)]="header.title">
+            </mat-form-field>
+            <mat-form-field style="margin: 0px 4px;" appearance="outline">
+                <mat-label>Live Demo Link</mat-label>
+                <input name="demolink" matInput type="text" [(ngModel)]="header.demolink">
+            </mat-form-field>
+            <mat-form-field style="margin: 0px 4px;width: 100%;" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea name="description" matInput type="text" rows="8" [(ngModel)]="header.description"></textarea>
+            </mat-form-field>
+            <div>
+                <button  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="saveProject()">Save</button>
+                <button *ngIf="!cancelDisabled"  style="padding: 0px 40px;margin: 0px 4px;" mat-flat-button color="accent" (click)="cancel()">Cancel</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

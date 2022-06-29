@@ -37,6 +37,38 @@
     <mat-tab label="Projects"> 
         <p style="display: flex;justify-content: space-between;align-items: center;padding: 5px;">
             <span><h2>Projects By {{userDetails.username}}</h2></span>
-            <span><button *ngIf="isSameUser" style="background-color: #f568a9d6;color: #fff;padding: 4px;border-radius: 5px;border: none;margin: 2px;outline: none;">Create New Project</button></span>
+            <span><button *ngIf="isSameUser" style="background-color: #f568a9d6;color: #fff;padding: 4px;border-radius: 5px;border: none;margin: 2px;outline: none;" (click)="createNewProject()">Create New Project</button></span>
+        <div *ngIf="userDetails.projects && userDetails.projects.length>0" class="grid">
+            <div *ngFor="let project of userDetails.projects;let p=index" [ngStyle]="{backgroundImage:'url('+ (fileServerSource + project.thumbnailfilename) +')'}" class="cell">
+                <div style="width: 100%;overflow: hidden;">
+                    <div style="margin: 2px;font-size: 10px;height: 136px;" (click)="openProject(project)">
+                        <span *ngIf="project.isdisabled" style="background: #ff71c1;padding: 2px;margin: 2px;border-radius: 5px;">Not Active</span>
+                    </div>
+                    <div style="width: 100%;display: flex;justify-content: space-between;align-items: center;background: #ee85c15f;">
+                        <div style="overflow: hidden;width: 60%;white-space: nowrap;padding-left: 10px;"> 
+                            <p>
+                                {{project.title}}
+                            </p> 
+                            <p style="font-size: 10px;">
+                                {{project.createdat ? (utilityService.getHumanizedDuration(project.createdat)) + ' ago ' : ''}}
+                            </p> 
+                        </div>
+                        <div style="display: flex;align-items: center;margin: 5px;"> 
+                            <button style="width: 40px;height: 40px;border-radius: 50%;margin: 2px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;"> 
+                                <a style="text-decoration: none;color: #ff71c1;" routerLink="/createproject" [queryParams]="{pid:project.projectid}" [replaceUrl]="true"> <i class="fa fa-pencil"></i> </a> 
+                            </button>
+                            <button [matMenuTriggerFor]="menu" style="width: 40px;height: 40px;border-radius: 50%;margin: 2px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;padding: 0px;"> 
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button> 
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="shareProject(project)">Share Project</button>
+                                <button *ngIf="project.projectfilename" mat-menu-item><a download="quickdevproject" [href]="fileServerSource + project.projectfilename" style="text-decoration: none;color: #000;">Download Project</a></button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div style="height: 100px;"></div>
     </mat-tab>
 </mat-tab-group>

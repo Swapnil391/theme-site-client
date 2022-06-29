@@ -14,3 +14,13 @@
     opacity: 0;
     filter: alpha(opacity=0);
 }
+
+.image-container-selected{
+    border: 1px solid #ff0062;
+    width: 99px;
+    height: 99px;
+}
+
+.image-container-not-selected{
+    border: none;
+}

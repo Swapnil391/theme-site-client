@@ -10,7 +10,6 @@ export class HttpService {
 
   constructor(private http : HttpClient) { }
   private handleError(error: any) {
-    console.log(error);
     return throwError("Unable to connect to server. Please try after sometime.");
   }
 
@@ -29,15 +28,10 @@ export class HttpService {
   private getReq(appUrl: any, path: any, callback: any,options?:any) {
     let _self = this;
     this.http.get(appUrl + path,options).pipe(map(function (res: any) {
-      console.log(res);
       return res;
     }), catchError(this.handleError)).subscribe(
-      data => {if(data){
-        console.log(data);
-      };
-      callback(data, null)},
-      error =>{console.log(error);
-        callback(null, error)}
+      data => {callback(data, null)},
+      error =>{callback(null, error)}
     );   
   }
 
