@@ -54,7 +54,9 @@ export class ViewProjectComponent implements OnInit {
     var params = {
       projectid:_self.header.projectid,
     }
+    this.utilityService.openLoader();
     _self.httpService.sendReq(null, '/api/getprojectbyid', params, function (data:any, err:any) {
+      _self.utilityService.closeLoader();
       if(err){
         _self.utilityService.openSnackBar('Some error occured');
       }else{

@@ -42,7 +42,9 @@ export class LoginComponent implements OnInit {
       password: this.firstFormGroup.get('password').value?this.firstFormGroup.get('password').value:null,
       emailid:this.secondFormGroup.get('email').value?this.secondFormGroup.get('email').value:null
     }
+    this.utilityService.openLoader();
     this.httpService.sendReq(null, '/api/register', params, function (data:any, err:any) {
+      _self.utilityService.closeLoader();
       if(err){
         _self.utilityService.openSnackBar('Some error occured');
       }else if(data.data){
@@ -58,7 +60,9 @@ export class LoginComponent implements OnInit {
       username: _self.loginDetails.username,
       password: _self.loginDetails.password
     }
+    this.utilityService.openLoader();
     this.httpService.sendReq(null, '/api/login', params, function (data:any, err:any) {
+      _self.utilityService.closeLoader();
       if(err){
         _self.utilityService.openSnackBar('Some error occured');
       }else if(data.error){
@@ -78,7 +82,9 @@ export class LoginComponent implements OnInit {
     var data = {
       emailid:this.secondFormGroup.get('email').value?this.secondFormGroup.get('email').value:null
     };
+    this.utilityService.openLoader();
     this.httpService.sendReq(null, '/api/sendOtp', data, function (data:any, err:any) {
+      _self.utilityService.closeLoader();
       _self.showotp =true;
       return;
     });
@@ -90,7 +96,9 @@ export class LoginComponent implements OnInit {
       emailid:this.secondFormGroup.get('email').value?this.secondFormGroup.get('email').value:null,
       otp:this.secondFormGroup.get('otp').value?this.secondFormGroup.get('otp').value:null
     };
+    this.utilityService.openLoader();
     this.httpService.sendReq(null, '/api/verifyotp', data, function (res:any, err:any) {
+      _self.utilityService.closeLoader();
       if(res && res.data){
         _self.verifiedOtp = true;
       }

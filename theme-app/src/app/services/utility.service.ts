@@ -6,12 +6,14 @@ import * as uuid from "uuid";
 import * as moment from 'moment';
 import { HttpService } from './http-service.service';
 import { Router } from '@angular/router';
+import { LoaderSpinnerComponent } from '../components/loader-spinner/loader-spinner.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilityService {
   dialogRef: any;
+  loaderRef: any;
   constructor(public dialog: MatDialog, private _snackBar: MatSnackBar,private httpService:HttpService,private _router:Router) { }
 
   generateUUID() {
@@ -78,7 +80,9 @@ export class UtilityService {
 
   deleteAccount(params:any){
     let _self = this;
+    this.openLoader();
     _self.httpService.sendReq(null, '/api/deleteaccount', params, function (data:any, err:any) {
+      _self.closeLoader();
       if(err){
         _self.openSnackBar('Some error occured');
       }else{
@@ -89,12 +93,24 @@ export class UtilityService {
   }
   deleteproject(params:any,callback:any){
     let _self = this;
+    this.openLoader();
     _self.httpService.sendReq(null, '/api/deleteproject', params, function (data:any, err:any) {
+      _self.closeLoader();
       if(err){
         _self.openSnackBar('Some error occured');
       }else{
         callback();
       }
     });   
+  }
+
+  openLoader() {
+    this.loaderRef = this.dialog.open(LoaderSpinnerComponent,{
+      hasBackdrop:true,
+      disableClose:true
+    });
+  }
+  closeLoader() {
+    this.loaderRef.close();
   }
 }

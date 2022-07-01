@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit {
     }
     _self.header.projectlist = [];
     _self.header.userlist = [];
+    this.utilityService.openLoader();
     this.httpService.sendReq(null, '/api/getfilteredprojects', params, function (data:any, err:any) {
       if(err){
         _self.utilityService.openSnackBar('Some error occured');
@@ -59,6 +60,7 @@ export class HomeComponent implements OnInit {
         _self.header.projectlist = data.data;
       } 
       _self.httpService.sendReq(null, '/api/getusersbyname', params, function (data1:any, err:any) {
+        _self.utilityService.closeLoader();
         if(err){
           _self.utilityService.openSnackBar('Some error occured');
         }else if(data1.data){

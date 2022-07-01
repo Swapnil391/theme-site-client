@@ -46,7 +46,9 @@ export class CreateProjectComponent implements OnInit {
       projectid:_self.header.projectid,
       userid: _self.loggedInUser.userid
     }
+    this.utilityService.openLoader();
     _self.httpService.sendReq(null, '/api/getprojectbyid', params, function (data:any, err:any) {
+    _self.utilityService.closeLoader();
       if(err){
         _self.utilityService.openSnackBar('Some error occured');
       }else{
@@ -102,8 +104,9 @@ export class CreateProjectComponent implements OnInit {
         }else{
           params.images = '';
         }
-        
+        this.utilityService.openLoader();
         _self.httpService.sendReq(null, '/api/saveproject', params, function (data:any, err:any) {
+          _self.utilityService.closeLoader();
           if(err){
             _self.utilityService.openSnackBar('Some error occured');
           }else{

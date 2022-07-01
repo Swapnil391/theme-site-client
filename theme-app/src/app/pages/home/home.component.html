@@ -9,7 +9,7 @@
 </div>
 
 <div *ngIf="header.userlist && header.userlist.length>0" class="grid">
-    <div *ngFor="let user of header.userlist;let p=index" style="width: 150px;height: 180px;background: #fff;border-radius: 5px;display: flex;flex-wrap: wrap;justify-content: center;align-content: space-around;align-items: center;" (click)="openUser(user)">
+    <div *ngFor="let user of header.userlist;let p=index" style="width: 150px;height: 180px;background: #fff;border-radius: 5px;margin: 2px;display: flex;flex-wrap: wrap;justify-content: center;align-content: space-around;align-items: center;" (click)="openUser(user)">
             <div style="width: 100px;height: 100px;border-radius: 50%;margin: 8px;border: #fff;background-color: #fff;color: #ff71c1;font-size: 25px;padding: 0px;border: 2px solid #ff71c1;">
                 <img style="width: 100%;border-radius: 50%;" [src]="user.profilefilename ? (fileServerSource+user.profilefilename) : fileServerSource + 'assets/useravatar.jpeg' " alt="" srcset="">
             </div> <br>

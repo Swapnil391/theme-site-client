@@ -53,7 +53,9 @@ export class AccountComponent implements OnInit {
     var params = {
       userid: userid
     }
+    this.utilityService.openLoader();
     this.httpService.sendReq(null, '/api/getuserbyid', params, function (data:any, err:any) {
+    _self.utilityService.closeLoader();
       if(err){
         _self.utilityService.openSnackBar('Some error occured');
       }else if(data.data){

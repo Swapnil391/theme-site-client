@@ -39,7 +39,9 @@ export class UserDetailsComponent implements OnInit {
     var params = {
       userid: userid
     }
+    this.utilityService.openLoader();
     this.httpService.sendReq(null, '/api/getuserbyid', params, function (data:any, err:any) {
+      _self.utilityService.closeLoader();
       if(err){
         _self.utilityService.openSnackBar('Some error occured');
       }else if(data.data){
@@ -75,13 +77,15 @@ export class UserDetailsComponent implements OnInit {
           params.profilefilename = '';
         }
         
-          _self.httpService.sendReq(null, '/api/updateuserbyid', params, function (data:any, err:any) {
-            if(err){
-              _self.utilityService.openSnackBar('Some error occured');
-            }else{
-              _self._router.navigate(["account"], { replaceUrl: true,queryParams:{uid:_self.loggedInUser.userid}});
-            }
-          });   
+        this.utilityService.openLoader();
+        _self.httpService.sendReq(null, '/api/updateuserbyid', params, function (data:any, err:any) {
+          _self.utilityService.closeLoader();
+          if(err){
+            _self.utilityService.openSnackBar('Some error occured');
+          }else{
+            _self._router.navigate(["account"], { replaceUrl: true,queryParams:{uid:_self.loggedInUser.userid}});
+          }
+        });   
   }
 
   cancel(){

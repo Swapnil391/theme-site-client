@@ -17,6 +17,7 @@ import { StandardDialogComponent } from './components/standard-dialog/standard-d
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { CreateProjectComponent } from './pages/create-project/create-project.component';
 import { ViewProjectComponent } from './pages/view-project/view-project.component';
+import { LoaderSpinnerComponent } from './components/loader-spinner/loader-spinner.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ViewProjectComponent } from './pages/view-project/view-project.componen
     StandardDialogComponent,
     FileUploadComponent,
     CreateProjectComponent,
-    ViewProjectComponent
+    ViewProjectComponent,
+    LoaderSpinnerComponent
   ],
   imports: [
     BrowserModule,

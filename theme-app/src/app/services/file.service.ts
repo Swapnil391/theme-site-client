@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http-service.service';
+import { UtilityService } from './utility.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
   fileServerSource:any='http://localhost:5000';
-  constructor(private httpService:HttpService) { }
+  constructor(private httpService:HttpService,public utilityService:UtilityService) { }
 
   fileChangeEvent(fileInput: any) {
 
@@ -42,7 +43,9 @@ export class FileService {
     files.forEach((file:any) =>{
       formData.append("file", file);
     })
+    this.utilityService.openLoader();
     _self.httpService.sendReq(_self.fileServerSource, '/file/uploadfile', formData, function (data1:any, err1:any) {
+      _self.utilityService.closeLoader();
       if(err1){
         callback(err1);
       }else{
@@ -53,7 +56,9 @@ export class FileService {
 
   deleteFile(files:any,callback:any){
     var _self = this;
+    this.utilityService.openLoader();
     _self.httpService.sendReq(_self.fileServerSource, '/file/deletefile', {filenames:files}, function (data1:any, err1:any) {
+      _self.utilityService.closeLoader();
       if(err1){
         callback(err1);
       }else{
