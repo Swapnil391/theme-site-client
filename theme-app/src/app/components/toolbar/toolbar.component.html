@@ -1,6 +1,6 @@
 <mat-toolbar style="background-color: #fbfbfb;">
     <mat-toolbar-row>
-        <span>App Logo Here</span>
+        <span><div style="width: 160px;display: flex;justify-content: center;align-items: center;"><img style="width: 100%;" src="../../../assets/labelicons/Screenshot 2022-07-02 at 11.41.09 PM.png" alt="" srcset=""></div></span>
         <span class="example-spacer"></span>
         <ng-container *ngIf="tabs && tabs.length>0 && !isMobileDevice">
             <span *ngFor="let tab of tabs" class="tab"><a [routerLink]="tab.link" [queryParams]="tab.queryParams" [replaceUrl]="true">{{tab.label}} </a></span>
