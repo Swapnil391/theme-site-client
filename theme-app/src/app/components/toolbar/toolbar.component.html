@@ -2,9 +2,17 @@
     <mat-toolbar-row>
         <span>App Logo Here</span>
         <span class="example-spacer"></span>
-        <ng-container *ngIf="tabs && tabs.length>0">
+        <ng-container *ngIf="tabs && tabs.length>0 && !isMobileDevice">
             <span *ngFor="let tab of tabs" class="tab"><a [routerLink]="tab.link" [queryParams]="tab.queryParams" [replaceUrl]="true">{{tab.label}} </a></span>
         </ng-container>
+        <button *ngIf="isMobileDevice" [matMenuTriggerFor]="mainmenu" style="width: 40px;height: 40px;border-radius: 50%;margin: 2px;border: #fff;background-color: #fff;font-size: 25px;padding: 0px;"> 
+            <i class="fa fa-ellipsis-v"></i>
+        </button> 
+        <mat-menu #mainmenu="matMenu">
+            <ng-container *ngIf="tabs && tabs.length>0">
+                <a *ngFor="let tab of tabs" [routerLink]="tab.link" [queryParams]="tab.queryParams" [replaceUrl]="true"><button mat-menu-item class="tab" style="display: flex;justify-content: center;align-items: center;font-size: larger;">{{tab.label}} </button></a>
+            </ng-container>
+        </mat-menu>
     </mat-toolbar-row>
 </mat-toolbar>
 
